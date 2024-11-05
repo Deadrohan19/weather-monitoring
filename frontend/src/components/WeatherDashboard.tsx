@@ -15,13 +15,15 @@ import AlertForm from "./AlertForm";
 import moment from "moment";
 import { CITIES } from "@/utils/weatherUtils";
 
+import { WeatherData } from "@/types/weather";
 
 export default function WeatherDashboard() {
   const [city, setCity] = useState("Mumbai");
+  const [tmp, setTmp] = useState("");
   const [isCelsius, setIsCelsius] = useState(true);
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setWeatherData] = useState<WeatherData>();
   const [dailySummary, setDailySummary] = useState(null);
-  const [otherCitiesData, setOtherCitiesData] = useState([]);
+  const [otherCitiesData, setOtherCitiesData] = useState<WeatherData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -36,7 +38,7 @@ export default function WeatherDashboard() {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/weather/${city}`);
       if (!response.ok) {
-        if(response.status === 404) {
+        if (response.status === 404) {
           throw new Error("City not found. Please check the city name and try again.");
         }
         throw new Error("Failed to fetch weather data");
@@ -47,9 +49,9 @@ export default function WeatherDashboard() {
       fetchDailySummary(city);
       fetchOtherCitiesData();
     } catch (error) {
-      if(error instanceof Error) {
+      if (error instanceof Error) {
         setError(error.message);
-      }else{
+      } else {
         setError("Failed to fetch weather data. Please try again.");
       }
       console.error("Error fetching weather data:", error);
@@ -78,21 +80,19 @@ export default function WeatherDashboard() {
           res.json()
         )
       );
-      const data = await Promise.all(promises);
+      const data: WeatherData[] = await Promise.all(promises);
       setOtherCitiesData(data);
     } catch (error) {
       console.error("Error fetching other cities data:", error);
     }
   };
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const searchCity = formData.get("searchCity");
-    if (searchCity) {
-      setCity(searchCity);
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (tmp) {
+      setCity(tmp);
     }
-  };
+};
 
   const toggleTemperatureUnit = () => {
     setIsCelsius(!isCelsius);
@@ -133,6 +133,7 @@ export default function WeatherDashboard() {
               type="text"
               placeholder="Search city"
               className="rounded-r-none"
+              onChange={(e) => setTmp(e.target.value)}
             />
             <Button
               type="submit"
