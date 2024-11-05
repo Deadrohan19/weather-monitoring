@@ -10,8 +10,7 @@ const app = express();
 
 const corsOptions = {
   origin: [
-    "http://localhost:5173"
-
+    process.env.FRONTEND_URL
   ], // Replace with your frontend URL
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"], // Add 'Authorization' here
