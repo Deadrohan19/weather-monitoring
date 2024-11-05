@@ -23,6 +23,7 @@ export interface WeatherData {
     country: string;
   };
   name: string;
+  timezone: number;
 }
 
 export interface DailySummary {
