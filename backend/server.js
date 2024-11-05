@@ -9,9 +9,8 @@ const setupCronJobs = require('./utils/cronJobs');
 const app = express();
 
 const corsOptions = {
-  origin: [
-   "https://weather-monitoring-lilac.vercel.app/" 
-  ], // Replace with your frontend URL
+  origin: "https://weather-monitoring-lilac.vercel.app",
+   // Replace with your frontend URL
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"], // Add 'Authorization' here
   credentials: true,
