@@ -100,6 +100,8 @@ npm start
 
 7. **Email Notifications**: Nodemailer is used to send email alerts when user-defined weather thresholds are breached.
 
+## UI
+![dashboard](weather_dashboard.png)
 
 ## Dependencies
 
