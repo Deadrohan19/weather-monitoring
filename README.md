@@ -1,7 +1,5 @@
 # Weather Monitoring System
 
-> Zeotap | software Engineer Intern | Assignment | Application 2
-
 ## Overview
 
 This Weather Monitoring System is a full-stack application that fetches real-time weather data for multiple cities, calculates daily summaries, and provides alerting capabilities based on user-defined thresholds.
